@@ -1,0 +1,61 @@
+---
+title: "Exracting Data from the Hakai Portal"
+author: "Brett"
+date: "30/01/2020"
+output: html_document
+---
+
+The purpose of this script is to go over downloading data from the Hakai data portal
+and joining various discrete sample types together into one table.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# https://hecate.hakai.org/rguide/
+library(devtools)
+library(tidyverse)
+```
+
+
+To insert a new code chunk
+ On mac
+ ctrl+option+i 
+On windows 
+  ctrl+alt+i
+ 
+```{r portal extraction}
+library(hakaiApi)
+client <- hakaiApi::Client$new()
+
+# define endpoints for SUVA and nutrients
+suva_endpoint <- sprintf("%s/%s", client$api_root, 'eims/views/output/suva?survey%26%26{"LAKEC"}&limit=-1') # use limit = -1 to get all the data back 
+suva_data <- client$get(suva_endpoint)
+
+nuts_endpoint <- sprintf("%s/%s", client$api_root, 'eims/views/output/nutrients?survey%26%26{"LAKEC"}&limit=-1')
+
+nuts_data <- client$get(nuts_endpoint)                         
+
+# Documentation for querystring filtering
+# https://github.com/HakaiInstitute/hakai-api-client-r 
+```
+
+```{r}
+
+# First widdle down the data tables to just the important columns
+suva_nral <- suva_data %>% 
+  select(event_pk, date, site_id, collected, suva_nral)
+
+nuts_nh4 <- nuts_data %>%
+  filter(analyzing_lab == "UA") %>% 
+  select(event_pk, date, site_id, collected, nh4_) %>% 
+  drop_na(nh4_)
+
+```
+
+```{r joins}
+# left joins give priority to the table on the left (nh_4 in this case)
+comb_discretes <- left_join(nuts_nh4, suva_nral, by = c("event_pk", "date", "site_id", "collected"))
+
+# See the dplyr cheat under help to see the other types of joins
+
+```
+
