@@ -1,2 +1,2 @@
 # data-mgmt
-Repo for the Hakai Scientific Data Mgmt.
+Hakai scientific data mgmt. scripts, documentation, and data
