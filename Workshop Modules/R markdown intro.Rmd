@@ -1,0 +1,243 @@
+---
+title: "R Markdown intro"
+author: "Brett"
+date: "04/02/2020"
+output:
+ html_document:
+   theme: cosmo
+   code_folding: show
+   toc: true
+   toc_float: true
+   number_sections: true
+---
+
+YAML header ^ 
+
+# YAML header options
+
+
+```{r setup, include=FALSE}
+# This is a code chunk comment using a pound sign
+knitr::opts_chunk$set(echo = TRUE) # This makes all the code chunks set to echo = true
+library(tidyverse)
+```
+
+Anything that's written here will render as text
+
+# First Level heading
+## Second level heading
+### Third
+
+* Bullet 1
+* Bullet 2
+* Bullet 3
+
+_italics_
+__bold__
+
+R Markdown relies of Pandoc and LaTex under the hood
+
+To insert a new code chunk use a shortcut:
+* Mac: cmd-option-i
+* WIndows: ctrl-alt-i
+
+```{r code chunk intro}
+5 + 5
+
+
+# o comment multiple lines at once press cmd-shift-c
+# dgf
+# fdgsdfg
+# sfgsdfgf
+# fgsgfg
+
+# To span multiple lines in R use ctrl-opt-up.
+# Hit escape 
+
+```
+
+### Code chunks
+
+Useful for controlling the output and evaluation of each code chunk. Useful options are eval, echo, and include.
+
+#### Figures and tables in chunks
+
+```{r}
+b <- c(1,2,3,4)
+a <- c("a", "a", "b", "b")
+
+#use a new function called tibble to create a dataframe(aka tibble)
+df <- tibble(a,b)
+
+ggplot(df, aes(a,b)) +
+  geom_point()
+
+# create a nice looking table
+knitr::kable(df, format = "markdown")
+
+# use the alignment argument to adjust alignment options
+```
+
+# Data Quality Tests
+
+## Check lat and lons
+
+```{r message=FALSE, warning=FALSE}
+# read in our salmon survey data from github
+seine_data <- read_csv("https://raw.githubusercontent.com/HakaiInstitute/jsp-data/master/data/seine_data.csv")
+
+#write a test to check for NAs in lat/lon
+# R evaluates TRUE as numeric 1, and FALSE as 0
+ 
+n_nas <- sum(is.na(seine_data$lat))
+#For inline r object display always use `r object_name`
+```
+
+The number of lat values that are NA is: `r n_nas `
+
+```{r relational joins}
+survey_data <- read_csv("https://raw.githubusercontent.com/HakaiInstitute/jsp-data/master/data/survey_data.csv")
+
+# lets make sure that all seines have a match for survey metadata
+
+# different types of joins include full_join, left_join, but also anti_join.
+
+# check which surveys don't have a corresponding seine
+survey_seine_match <- anti_join(survey_data, seine_data, by = 'survey_id')
+
+# check which seines don't have corresponding metadata from surveys
+n_sad_seines <- nrow(anti_join(seine_data, survey_data))
+```
+
+The number of seines that don't have matching survey metadata is: `r n_sad_seines`
+
+# Dates and times
+
+This material comes from Jenny Bryans Stat 545 course materials at stat545.com
+
+
+```{r}
+
+library(lubridate) # library(tidyverse) doesn't load lubridate
+Sys.Date()
+today()
+
+# check object class using base r to see if an object is stored as a date
+str(Sys.Date())
+
+Sys.time()
+now()
+
+str(Sys.time())
+# POSIXct lets you know you're dealing with a date/time format
+
+survey_data$survey_date
+# Best practice is to store dates as YYYY-MM-DD
+
+# Create month column from our survey_date column
+
+survey_data <- survey_data %>% 
+  mutate(month = month(survey_date),
+         year = year(survey_date),
+         yday = yday(survey_date),
+         day = day(survey_date)) %>% 
+  mutate(weird_date = paste(day, month, year, sep = "-")) %>% 
+  mutate(ymdate = dmy(weird_date))
+
+survey_data <- 
+  
+d1 <- "January 1, 2010"
+mdy(d1)
+
+d2 <- "2015-Mar-07"
+ymd(d2)
+
+d3 <- ""
+```
+
+### Time spans 
+
+Type of spans of time:
+* Duration: represents an exact number of seconds
+* periods: represent human units like weeks, days or months
+* intervals: represents a starting point and an end-point
+
+```{r}
+# How old is Brett
+b_age <- today() - ymd(19860918)
+class(b_age)
+
+b_age <- as.duration(b_age)
+b_age
+class(b_age)
+
+dseconds(15)
+dminutes(10)
+
+# Durations always record times in seconds
+
+
+tomorrow <- today() + ddays(1)
+tomorrow
+
+last_year <- today() - dyears(1)
+
+last_year
+```
+
+```{r}
+# because durations always use seconds you get this:
+
+one_pm <- ymd_hms("2016-03-12 13:00:00", tz = "America/New_York")
+
+one_pm
+
+one_pm + ddays(1)
+# adding durations can sometimes cause problems as demonstrated
+
+```
+
+## Periods
+
+Periods are time spans but don't have a fixed length in seconds. Instead they work like human times like days and months
+
+```{r}
+one_pm
+
+one_pm + days(1) # ddays is a duration, days is a period class
+
+```
+
+Like durations, periods can be created with anumber of friendly constructor fucntions:
+
+```{r}
+seconds(15) # dseconds provides time span class of duration, whereas seconds provides time span class of period
+
+minutes(10)
+# you can multiply and add periods
+
+# Leap year example:
+ymd("2016-01-01") + dyears(1)
+ymd("2016-01-01") + years(1)
+
+```
+
+### Intervals
+
+```{r}
+dyears(1) / ddays(365) # durations
+
+years(1) / days(1) # periods
+
+next_year <- today() + years(1)
+next_year
+
+# If you'd like to know the exact duraration in days between two times use an interval and divide by the duration you'd like (ddays)
+# %--% is for showing a duration
+(today() %--% next_year) / ddays(1)
+
+# To find out how many periods fall into an interval, we need to use integer division.
+(today() %--% next_year) %/% days(1)
+
+```
+

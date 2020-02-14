@@ -1,0 +1,322 @@
+---
+title: "Untitled"
+author: "Brett"
+date: "04/02/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Project Oriented Workflow
+
+------------
+
+> ### Learning Objectives
+>
+> * Understand the benefits of version control and set up a GitHub Repository
+> * Describe the benefits of a Project Oriented Workflow
+> * Organize files and directories for a set of analyses as an R project
+> * Understand the purpose of the working directory, and the `here()` package
+> * Explain when to use the source editor vs. the console
+
+------------
+
+## Version Control
+
+Everything under this 'Version Control' is from Jenny Bryan's Book [Happy Git with R](https://happygitwithr.com) Licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/) with minor modifications to contextualize Jenny's work for this use case.
+
+"Git is a version control system. Its original purpose was to help groups of developers work collaboratively on big software projects. Git manages the evolution of a set of files – called a repository – in a sane, highly structured way. If you have no idea what I’m talking about, think of it as the “Track Changes” features from Microsoft Word on steroids."
+
+GitHub provides a home for your Git-based projects on the internet. If you have no idea what I’m talking about, think of it as DropBox but much, much better. The remote host acts as a distribution channel or clearinghouse for your Git-managed project. It allows other people to see your stuff, sync up with you, and perhaps even make changes."
+
+You can think of having an additional ‘save’ that comes from version control. This additional save, in git terms is known as a _commit_. You save your files like you normally would, but every once in a while you commit your files as an official version to be remembered. A commit can be thought of as a bullet point in the to do list of your analysis, and each commit you make must be accompanied by a message. For example; ‘read in data and tidy it up’, or ‘remove observations from non-standard sampling event, and re-fit GLM’. Git tracks the commits you make in R-Studio locally on your own computer. When you are ready for a series of commits to be made public, you _push_ your commits to your remote repository at GitHub.
+
+Read [Happy Git with R](https://happygitwithr.com) by Jenny Bryan for more details!
+
+### New project, GitHub first
+
+We create a new Project, with the preferred "GitHub first, then RStudio" sequence. Why do we prefer this? Because this method of copying the Project from GitHub to your computer also sets up the local Git repository for immediate pulling and pushing. Under the hood, we are doing `git clone`.
+
+You've actually done this before during set up the pre-reading material. We're doing it again, *with feeling*.
+
+### Make a repo on GitHub
+
+**Do this once per new project.**
+
+Go to <https://github.com/pelagic-ecosystems/> and make sure you are logged in.
+
+Click green "New repository" button.
+
+Repository name: `myrepo` (or whatever you wish)  
+Public  
+YES Initialize this repository with a README
+
+Click the big green button "Create repository."
+
+Copy the HTTPS clone URL to your clipboard via the green "Clone or Download" button. Or copy the SSH URL if you chose to set up SSH keys.
+
+### New RStudio Project via git clone
+
+In RStudio, start a new Project:
+
+  * *File > New Project > Version Control > Git*. In the "repository URL" paste the URL of your new GitHub repository. It will be something like this `https://github.com/pelagic-ecosystems/myrepo.git`.
+  * Be intentional about where you create this Project.
+  * Suggest you "Open in new session".
+  * Click "Create Project" to create a new directory, which will be all of these things:
+    - a directory or "folder" on your computer
+    - a Git repository, linked to a remote GitHub repository
+    - an RStudio Project
+  * **In the absence of other constraints, I suggest that all of your R projects have exactly this set-up.**
+
+This should download the `README.md` file that we created on GitHub in the previous step. Look in RStudio's file browser pane for the `README.md` file.
+
+There's a big advantage to the "GitHub first, then RStudio" workflow: the remote GitHub repo is added as a remote for your local repo and your local `master` branch is now tracking `master` on GitHub. This is a technical but important point about Git. The practical implication is that you are now set up to push and pull. No need to fanny around setting up Git remotes and tracking branches on the command line.
+
+### Make local changes, save, commit
+
+**Do this every time you finish a valuable chunk of work, probably many times a day.**
+
+From RStudio, modify the `README.md` file, e.g., by adding the line "This is a line from RStudio". Save your changes.
+
+Commit these changes to your local repo. How?
+
+  * Click the "Git" tab in upper right pane
+  * Check "Staged" box for any files whose existence or modifications you want to commit.
+    - To see more detail on what's changed in file since the last commit, click on "Diff" for a Git pop-up
+  * If you're not already in the Git pop-up, click "Commit"
+  * Type a message in "Commit message", such as "Commit from RStudio".
+  * Click "Commit"
+
+### Push your local changes to GitHub
+
+**Do this a few times a day, but possibly less often than you commit.**
+
+You have new work in your local Git repository, but the changes are not online yet.
+
+This will seem counterintuitive, but first let's stop and pull from GitHub.
+
+Why? Establish this habit for the future! If you make changes to the repo in the browser or from another machine or (one day) a collaborator has pushed, you will be happier if you pull those changes in before you attempt to push.
+  
+Click the blue "Pull" button in the "Git" tab in RStudio. I doubt anything will happen, i.e. you'll get the message "Already up-to-date." This is just to establish a habit.
+
+Click the green "Push" button to send your local changes to GitHub. You should see some message along these lines.
+
+``` bash
+[master dc671f0] blah
+ 3 files changed, 22 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 myrepo.Rproj
+```
+
+### Confirm the local change propagated to the GitHub remote
+
+Go back to the browser. I assume we're still viewing your new GitHub repo.
+
+Refresh.
+
+You should see the new "This is a line from RStudio" in the README.
+
+If you click on "commits," you should see one with the message "Commit from RStudio".
+
+### Make a change on GitHub
+
+Click on README.md in the file listing on GitHub.
+
+In the upper right corner, click on the pencil for "Edit this file".
+
+Add a line to this file, such as "Line added from GitHub."
+
+Edit the commit message in "Commit changes" or accept the default.
+
+Click the big green button "Commit changes."
+
+### Pull from GitHub
+
+Back in RStudio locally ...
+
+Inspect your README.md. It should NOT have the line "Line added from GitHub". It should be as you left it. Verify that.
+
+Click the blue Pull button.
+
+Look at README.md again. You should now see the new line there.
+
+### The end
+
+Now just ... repeat. Do work somewhere. Commit it. Push it or pull it\* depending on where you did it, but get local and remote "synced up". Repeat.
+
+\* Note that in general (and especially in future when collaborating with other developers) you will usually need to pull changes from the remote (GitHub) before pushing the local changes you have made. For this reason, it's a good idea to try and get into the habit of pulling before you attempt to push.
+
+## The working directory
+
+The working directory is an important concept to understand. It is the place
+from where R will be looking for and saving the files. When you write code for
+your project, it should refer to files in relation to the root of your working
+directory and only need files within this structure.
+
+Using RStudio projects makes this easy and ensures that your working directory
+is set properly. If you need to check it, you can use `getwd()`. If for some
+reason your working directory is not what it should be, you can change it in the
+RStudio interface by navigating in the file browser where your working directory
+should be, and clicking on the blue gear icon "More", and select "Set As Working
+Directory". Alternatively you can use `setwd("/path/to/working/directory")` to
+reset your working directory. However, your scripts should not include this line
+because it will fail on someone else's computer.
+
+It is good practice to keep a set of related data, analyses, and text
+self-contained in a single folder, called the **working directory**. All of the
+scripts within this folder can then use *relative paths* to files that indicate
+where inside the project a file is located (as opposed to absolute paths, which
+point to where a file is on a specific computer). Working this way makes it
+a lot easier to move your project around on your computer and share it with
+others without worrying about whether or not the underlying scripts will still
+work.
+
+RStudio's default preferences generally work well, but saving a workspace to
+.RData can be cumbersome, especially if you are working with larger datasets.
+To turn that off, go to Tools --> 'Global Options' and select the 'Never' option
+for 'Save workspace to .RData' on exit.'
+
+![Set 'Save workspace to .RData on exit' to 'Never'](img/rstudio-preferences.png)
+
+### Template folder structure
+
+Using a consistent folder structure across your projects will help keep things
+organized, and will also make it easy to find/file things in the future. This
+can be especially helpful when you have multiple projects. In general, you may
+create directories (folders) for **scripts**, **read_data**, **write_data**, **figs**, and **documents**. You will also wante to creat a CHANGELOG file, which will track the major versions of your data, scripts, and figures.
+
+ - **`read_data/`** Use this folder to store your raw data and don't ever change your raw data!.
+   For the sake
+   of transparency and [provenance](https://en.wikipedia.org/wiki/Provenance),
+   you should *always* keep a copy of your raw data accessible and do as much
+   of your data cleanup and preprocessing programmatically (i.e., with scripts,
+   rather than manually in excel which you can't reproduce) as possible. 
+   Separating raw data from processed data
+   is critical.
+ - **`write_data/`** Save derived data sets here after cleaning or summarizing.
+ - **`documents/`** This would be a place to keep outlines, drafts, and other
+   text.
+ - **`scripts/`** This would be the location to keep your R scripts for
+   different analyses or plotting, and potentially a separate folder for your
+   functions (more on that later).
+ - **`figs/`** Programatically save the output of to `figs/` using `ggsave()`.
+
+You may want additional directories or subdirectories depending on your project
+needs, but these should form the backbone of your working directory.
+
+![Example of a working directory structure.](img/working-directory-structure.png)
+
+For this workshop, we will need a `read_data/` folder to store our raw data, and we
+will use `write_data/` for when we learn how to export data as CSV files, and
+`figs/` folder for the figures that we will save.
+
+* Under the `Files` tab on the right of the screen, click on `New Folder` and
+  create a folder named `data` within your newly created working directory
+  (e.g., `~/data-carpentry/read_data`). (Alternatively, type `dir.create("data")` at
+  your R console.) Repeat these operations to create a `write_data/` and a
+  `figs/` folders.
+* Again under the `Files` tab, click on `New File` and create a new `Text File`. Type #CHANGELOG on the first line and save the new file as CHANGELOG.TXT in the root of your working directory.
+
+We are going to keep the script in the root of our working directory because we
+are only going to use one file and it will make things easier.
+
+Your working directory should now look like mine.
+
+
+### The `here()` package
+
+To avoid having to set your working directory completely, a recommended method to work with relative file paths is using the `here()` package in conjunction with R-Studio projects. When you create a new R-Studio project, a .Rproj file is automatically created in the new folder that you created for the project. The `here()` package will automatically set your working directory to wherever your .Rproj file is saved. That means you can save a file like this: `write_csv(file_name, here("data", "file_name.csv"))`. Using `here()` means that if you access your collaborators folder where the .Rproj file is and they have been using relative paths using `here()`, the scripts should all just work—no chaning working directories or absolute file paths.
+
+Questions?
+
+## Interacting with R
+
+The basis of programming is that we write down instructions for the computer to
+follow, and then we tell the computer to follow those instructions. We write, or
+*code*, instructions in R because it is a common language that both the computer
+and we can understand. We call the instructions *commands* and we tell the
+computer to follow the instructions by *running* those commands. We use *functions* that are part of *packages*.
+
+There are two main ways of interacting with R: by using the console or by using
+script files (plain text files that contain your code). The console pane (in
+RStudio, the bottom left panel) is the place where commands written in the R
+language can be typed and executed immediately by the computer. It is also where
+the results will be shown for commands that have been executed. You can type
+commands directly into the console and press `Enter` to execute those commands,
+but they will be forgotten when you close the session.
+
+Because we want our code and workflow to be reproducible, it is better to type
+the commands we want in the script editor, and save the script. This way, there
+is a complete record of what we did, and anyone (including our future selves!)
+can easily replicate the results on their computer.
+
+At some point in your analysis you may want to check the content of a variable
+or the structure of an object, without necessarily keeping a record of it in
+your script. You can type these commands and execute them directly in the
+console.  RStudio provides the <kbd>`Ctrl`</kbd> + <kbd>`1`</kbd> and
+<kbd>`Ctrl`</kbd> + <kbd>`2`</kbd> shortcuts allow you to jump between the
+script and the console panes.
+
+## R Markdown
+
+Create a new R Markdown File.
+
+File > New > R Markdown
+
+### What's Markdown?
+
+Markdown is a lightweight markup language, like html but way simpler:
+
+Single hashtags heading 1, 3 for heading 3: "###", 
+
+### Heading 3 Example
+
+Use '*' around words for bold or italics.
+
+Bullet points also with a single '*'
+
+Markdown cheatsheet in help > cheatsheets.
+
+R Markdown is a file format that allows you to organize your notes, code, and results in a single document. It’s a great tool for “literate programming” – the idea that your code should be readable by humans as well as computers! It also keeps your writing and results together, so if you collect some new data or change how you clean the data, you just have to re-compile the document and you’re up to date!
+
+What your final data product is going to be will dictate what your final scripts will be.  R Markdown files formats that have pre-made templates and solutions that are easy to modify to suit your needs include:
+
+* Analysis report templates (html, .pdf, or .doc outputs);  
+* A Manuscript;
+* A Book;
+* A Dissertation;
+* A Research Compendium;
+* A Slideshow;
+* An interactive dashboard;
+* An R Package
+* A website
+
+As a baseline I recommend .Rmd as the final format because this gives you a lot of flexibility in terms of polished data products.
+
+
+### Knitting your document
+
+Knit the document!
+
+## Data Packaging
+
+1. Zip up key parts of the analysis:
+  + write_data
+  + CHANGELOG
+  + README
+  + DATA DICTIONARY
+  + Data processing script
+  + Data analysis script
+  
+2. Name the zip file with a version that matches the CHANGELOG
+  + Put the zip file in your working directory
+  + Don't ever edit the zipped folder again!
+  
+3. Commit and push to GitHUB and make a release
+  + Go into GitHub and tag this commit with a version
+
+4. Let Brett Know!
+
+

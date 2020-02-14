@@ -1,0 +1,52 @@
+---
+title: "POMS Data Quality Report"
+author: "Brett"
+date: "29/11/2019"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(lubridate)
+library(knitr)
+library(here)
+library(shiny)
+library(plotly)
+
+poms_all_cols <- read_csv(here("bottle-files", "raw_data", "poms_all_cols.csv"), guess_max = 20000) %>% 
+   mutate(year = year(date))
+```
+
+
+```{r}
+
+checkboxGroupInput("checkGroup", label = h3("Group By"), 
+    choices = list( "Quality Level" = "quality_level", "Work Area" = "work_area", "Year" = "year", "Site" = "site_id"),
+    selected = "quality_level")
+
+textInput("filterby", label = h3("Type in a specific site if you want"), value = "QU39")
+
+renderTable(
+                     poms_all_cols %>% 
+                       filter(site_id == input$filterby) %>% 
+                      group_by_(.dots = input$checkGroup) %>% 
+                       summarize(n_samples = n())
+                     )
+
+
+renderPlotly({
+  tt <- poms_all_cols %>%
+    filter(site_id == input$filterby) %>%
+    group_by_(.dots = input$checkGroup) %>%
+    summarize(n_samples = n()) %>%
+    ggplot()+
+             geom_bar(aes(x = quality_level, y = n_samples, fill = quality_level),
+                      stat="identity"
+                      )+
+    labs(title = input$filterby)
+    ggplotly(tt)
+})
+
+```
