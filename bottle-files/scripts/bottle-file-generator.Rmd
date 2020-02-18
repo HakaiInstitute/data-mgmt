@@ -19,6 +19,7 @@ library(lubridate)
 library(knitr)
 library(here)
 library(car)
+library(testthat)
 
 # Read data (see data import script for data access code)
 chl_all_cols <- read_csv(here("raw_data", "cha_all_cols.csv"), guess_max = 20000) 
@@ -27,6 +28,8 @@ nuts_all_cols <- read_csv(here("raw_data", "nuts_all_cols.csv"),
                           col_types = cols(no2_no3_ugl = col_double(),
                                            tp = col_double())) 
 poms_all_cols <- read_csv(here("raw_data", "poms_all_cols.csv"), guess_max = 20000) 
+
+
 qu39_ctd <- read_csv(here("raw_data", "qu39_ctd.csv"), guess_max = 100000)
 
 # Define common columns I want back from every discrete sample
@@ -34,13 +37,23 @@ common_columns <- c("event_pk", "date",  "collected", "hakai_id", "work_area",
                     "site_id", "lat", "long","line_out_depth", "sampling_bout",
                     "pressure_transducer_depth")
 
+#6 Deal with bottom issues: sometimes CTD doesn't go all the way down, and if we use target depth of discrete sample to match, there will be no match.
 
+#7 Replace CTD surface measurements with YSI measurements
+
+#8 Add DOC and CO2 to bottle file
+
+#TODO: Pair closest CTD depth to bottle depths.
+  # [ ] Preferentially use solo depths rather than target depths
+  # [ ] If no solo depths, use target depth
 #TODO: include flag columns for each variable
 #TODO: Look out for cases when there is no start_dt
 #TODO: break-out files by event_pk just before putting into erddap
-#TODO: eventually add comments
+#TODO: eventually add sensible comment columns
 #TODO: Confirm missingness with OSV?
-#Note: xml has to be updated with new variable names each time
+
+
+#Note: xml has to be updated with new variable names each time another variable is added
 ```
 
 # Discrete Samples
@@ -200,10 +213,13 @@ poms_all_cols %>%
 ```{r POMS}
 poms <- poms_all_cols %>% 
   filter(site_id == "QU39") %>% 
-  select(common_columns, acidified, acidification_method, volume, part, screen_size, collected_poms = collected, preserved, analyzed, filter_portion, pre_weight_mg:row_flag, quality_level_poms = quality_level) %>% 
+  select(common_columns, acidified, acidification_method, volume, part, screen_size, collected_poms = collected, preserved, analyzed, filter_portion, pre_weight_mg:row_flag, quality_level_poms = quality_level) %>%
+  #rename(poms_date = date) %>% 
   ungroup()
 
 ```
+
+## DOC
 
 # Join Discrete Samples
 
@@ -259,24 +275,39 @@ qu39_ctd <- qu39_ctd %>%
 
 # Join Discrete Samples and CTD Depths
 
-```{r Bottle File Generation}
-# switch here from tidyverse to data.table to use rolling join function.
+```{r BFG}
+class(discrete_samples$day)
 
-library(data.table)
-setDT(qu39_ctd)            ## convert to data.table by reference
-setDT(discrete_samples)            ## same
-
-qu39_ctd[, date := start_dt]  ## create a duplicate of 'date1'
-setkey(qu39_ctd, start_dt)    ## set the column to perform the join on
-setkey(discrete_samples, median_discrete_collected)    ## same as above
-
-bottle_file <- qu39_ctd[discrete_samples, roll="nearest"] ## perform rolling join
-
-write_csv(bottle_file, here::here("processed_data", "qu39_bottle_file.csv"), na = "")
+qu39_ctd$date <- as_date(qu39_ctd$date)
+bottle_file <- left_join(discrete_samples, qu39_ctd, by = c("date", "hakai_id", "work_area", "year", "site_id" = "station", "line_out_depth" = "depth"))
 ```
 
-```{r min bf qc}
+
+```{r bf qc}
 #create minimal bottle file to QC
+
+hakai_ids <- bottle_file %>% 
+  select(hakai_id, bottom_dt, date, date_chl, date_nuts)
+
+depth <- bottle_file %>%
+  as_tibble() %>% 
+  select("pressure", "start_depth", "bottom_depth", "line_out_depth", "original_bottom_depth",
+         "target_depth", "pressure_transducer_depth", "pressure_transducer_depth_chl",
+         "pressure_transducer_depth_nuts")
+
+dates_qc <- bottle_file %>% 
+  as_tibble() %>% 
+  select(ctd_file_pk, ctd_cast_pk, ctd_data_pk, bottom_dt, original_bottom_dt, start_dt, original_start_dt, year, date, event_pk, date_chl, collected_chl, date_nuts, collected_nuts, collected_poms)  # No date_poms?
+  
+test_that("years are the same", {
+  expect_equivalent(year(dates_qc$original_bottom_dt), year(dates_qc$date_chl))
+  expect_equivalent(day(dates_qc$original_bottom_dt), day(dates_qc$date_chl))
+})  
+
+
+#TODO: Figure out why there's no date_poms  
+#TODO: Convert all the dates to durations
+
 min_bf <- bottle_file %>% 
   select(event_pk, line_out_depth, date, end_dt, temperature, collected_chl, collected_nuts, collected_poms)
 
