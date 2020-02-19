@@ -1,0 +1,134 @@
+---
+title: "Bottle File QC Report"
+author: "Brett Johnson"
+date: '`r date()`'
+output:
+ html_document:
+   theme: cosmo
+   code_folding: show
+   toc: true
+   toc_float: true
+   number_sections: true
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FALSE)
+library(tidyverse)
+library(devtools)
+library(lubridate)
+library(knitr)
+library(here)
+library(car)
+library(testthat)
+
+# Read in processed bottle_file
+```
+
+```{r Chla QC, include = FALSE}
+# place holder to re write with correct input
+kable(chl_all_cols %>%  group_by(quality_level) %>% 
+  summarize(n = n()), caption = "Table. Quality levels of chl a data" )
+
+chl_all_cols %>% 
+  group_by(work_area, quality_level) %>% 
+  summarize(n_samples = n()) %>% 
+  ggplot(aes(x = work_area, y = n_samples, fill = quality_level)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Chla samples")
+
+chl_all_cols %>% 
+  group_by(work_area, chla_flag) %>% 
+  summarize(n_samples = n()) %>% 
+  ggplot(aes(x = work_area, y = n_samples, fill = chla_flag)) +
+  geom_bar(stat = "identity")+
+  labs(title = "Chla samples")
+```
+
+
+```{r Nuts QC, include=FALSE}
+kable(nuts_all_cols %>% group_by(quality_level) %>% 
+  summarize(n = n()))
+
+nuts_all_cols %>% 
+  group_by(work_area, quality_level) %>% 
+  summarize(n_samples = n()) %>% 
+  ggplot(aes(x = work_area, y = n_samples, fill = quality_level)) +
+  geom_bar(stat = "identity")+
+  labs(title = "Nutrient samples")
+
+```
+
+## Nutrients
+
+```{r nuts replicates}
+
+# The intent with this code chunk is to calculate the coeff. of variation for replicated samples. At some point we need to confirm when to throw out data based on too high of a CV.
+
+nuts_replicates_qc <- nuts_all_cols %>% 
+  select(common_columns, nh4_, no2_no3_um, no2_no3_ugl, no2_no3_units, tp, tdp,
+         tn, tdn, srp, po4, sio2, po4pfilt, no3nfilt, po4punfl, no3nunfl,
+         nh4nunfl, quality_level) %>% 
+  group_by(event_pk, line_out_depth) %>% 
+  summarise_at(c("nh4_", "no2_no3_um", "no2_no3_ugl",
+           "tp", "tdp", "tn", "tdn", "srp", "po4", "sio2", "po4pfilt", "no3nfilt", "po4punfl",
+           "no3nunfl", "nh4nunfl"), funs(mean(., na.rm = TRUE), sd(., na.rm = TRUE))) %>% 
+  mutate(n_replicates = n(),
+         nh4_cv         = (nh4__sd / nh4__mean) * 100,
+         no2_no3_um_cv  = (no2_no3_um_sd / no2_no3_um_mean) * 100,
+         no2_no3_ugl_cv = (no2_no3_ugl_sd / no2_no3_ugl_mean) * 100,
+         tp_cv          = (tp_sd / tp_mean) * 100,
+         tdp_cv         = (tdp_sd / tdp_mean) * 100,
+         tn_cv          = (tn_sd / tn_mean) * 100,
+         tdn_cv         = (tdn_sd / tdn_mean) * 100,
+         srp_cv         = (srp_sd / srp_mean) * 100,
+         po4_cv         = (po4_sd / po4_mean) * 100,
+         sio2_cv        = (sio2_sd / sio2_mean) * 100,
+         po4pfilt_cv    = (po4pfilt_sd / po4pfilt_mean) * 100,
+         no3nfilt_cv    = (no3nfilt_sd / no3nfilt_mean) * 100,
+         po4punfl_cv    = (po4punfl_sd / po4punfl_mean) * 100,
+         no3nunfl_cv    = (no3nunfl_sd / no3nunfl_mean) * 100,
+         nh4nunfl_cv    = (nh4nunfl_sd / nh4nunfl_mean) * 100
+  ) %>% 
+  filter(n_replicates > 1) %>% 
+  ungroup() 
+
+number_of_replicted_samping_events <- nrow(nuts_replicates_qc) 
+
+# This lists the samples that have atleast one nutrient that has a CV > 10 (arbitrary)
+high_cv <- nuts_replicates_qc %>% 
+  select(
+         nh4_cv,         
+         no2_no3_um_cv,  
+         no2_no3_ugl_cv, 
+         tp_cv,          
+         tdp_cv,         
+         tn_cv,         
+         tdn_cv,         
+         srp_cv,         
+         po4_cv,         
+         sio2_cv,        
+         po4pfilt_cv,    
+         no3nfilt_cv,    
+         po4punfl_cv,    
+         no3nunfl_cv,    
+         nh4nunfl_cv) %>% 
+  filter_all(any_vars(. > 10))
+
+nutty_nuts <- right_join(nuts_replicates_qc, high_cv) %>% 
+  select(event_pk, line_out_depth, n_replicates: nh4nunfl_cv)
+
+kable(nutty_nuts, caption = "Table. Nutrient sample replicates that have a coefficient of variation greater than .1")
+```
+
+
+```{r POMS QC, include=FALSE}
+kable(poms_all_cols %>% group_by(quality_level) %>% 
+  summarize(n = n()))
+
+poms_all_cols %>% 
+  group_by(work_area, quality_level) %>% 
+  summarize(n_samples = n()) %>% 
+  ggplot(aes(x = work_area, y = n_samples, fill = quality_level)) +
+  geom_bar(stat = "identity") +
+  labs(title = "POMS")
+```
