@@ -220,7 +220,9 @@ write_csv(discrete_samples, here::here("processed_data", "discrete_samples.csv")
 ```{r BFG}
 qu39_ctd$numeric_collected <- as.numeric(qu39_ctd$start_dt)
 
-bottle_file <- distance_left_join(discrete_samples, qu39_ctd, by = c("priority_depth_chl" = "depth", "numeric_collected_chl" = "numeric_collected"))
+bottle_file <- distance_left_join(discrete_samples, qu39_ctd, 
+                                  by = c("priority_depth_chl" = "depth",
+                                         "numeric_collected_chl" = "numeric_collected"))
 #bottle_file <- left_join(discrete_samples, qu39_ctd, by = c("date", "hakai_id", "work_area", "year", "site_id" = "station", "line_out_depth" = "depth"))
 ```
 
