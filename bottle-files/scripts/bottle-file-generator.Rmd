@@ -20,6 +20,7 @@ library(knitr)
 library(here)
 library(car)
 library(testthat)
+library(fuzzyjoin)
 
 # Read data (see data import script for data access code)
 chl_all_cols <- read_csv(here("raw_data", "cha_all_cols.csv"), guess_max = 20000) 
@@ -32,10 +33,17 @@ poms_all_cols <- read_csv(here("raw_data", "poms_all_cols.csv"), guess_max = 200
 
 qu39_ctd <- read_csv(here("raw_data", "qu39_ctd.csv"), guess_max = 100000)
 
+# Carbon file provided  in a file by Carrie. Should be replaced with citable version
+carbon_chem <- read_csv(here("raw_data", "oa-random-file-from-Carrie.csv")) %>% 
+  mutate(cc_date = ymd_hms(paste(DATE_UTC, TIME_UTC)))
+
+
 # Define common columns I want back from every discrete sample
-common_columns <- c("event_pk", "date",  "collected", "hakai_id", "work_area", 
-                    "site_id", "lat", "long","line_out_depth", "sampling_bout",
-                    "pressure_transducer_depth")
+common_columns <- c("event_pk", "date",  "collected", "hakai_id",
+                    "site_id", "line_out_depth", "sampling_bout",
+                    "pressure_transducer_depth") # doesn't currently use lat and lon
+
+site <- "QU39"
 
 #6 Deal with bottom issues: sometimes CTD doesn't go all the way down, and if we use target depth of discrete sample to match, there will be no match.
 
@@ -64,24 +72,6 @@ Along the way I write various quality checks to summarize the quality of various
 
 ## Chlorophyll a
 
-```{r Chla QC, include = FALSE}
-kable(chl_all_cols %>%  group_by(quality_level) %>% 
-  summarize(n = n()), caption = "Table. Quality levels of chl a data" )
-
-chl_all_cols %>% 
-  group_by(work_area, quality_level) %>% 
-  summarize(n_samples = n()) %>% 
-  ggplot(aes(x = work_area, y = n_samples, fill = quality_level)) +
-  geom_bar(stat = "identity") +
-  labs(title = "Chla samples")
-
-chl_all_cols %>% 
-  group_by(work_area, chla_flag) %>% 
-  summarize(n_samples = n()) %>% 
-  ggplot(aes(x = work_area, y = n_samples, fill = chla_flag)) +
-  geom_bar(stat = "identity")+
-  labs(title = "Chla samples")
-```
 
 ```{r Chl a}
 chl <- chl_all_cols %>% 
@@ -90,7 +80,7 @@ chl <- chl_all_cols %>%
   filter(!filter_type %in% c('2 + 3', '20')) %>% 
   drop_na(filter_type, chla_final, phaeo_final) %>% 
   ungroup() %>% 
-  filter(site_id == "QU39")
+  filter(site_id == site)
 
 collapse_all_rows <- function(df) {
   return(coalesce(!!! as.list(df)))
@@ -105,84 +95,10 @@ chl_wide <- chl %>%
 
 ```
 
-## Nutrients
-
-```{r Nuts QC, include=FALSE}
-kable(nuts_all_cols %>% group_by(quality_level) %>% 
-  summarize(n = n()))
-
-nuts_all_cols %>% 
-  group_by(work_area, quality_level) %>% 
-  summarize(n_samples = n()) %>% 
-  ggplot(aes(x = work_area, y = n_samples, fill = quality_level)) +
-  geom_bar(stat = "identity")+
-  labs(title = "Nutrient samples")
-
-```
-
-```{r nuts replicates}
-
-# The intent with this code chunk is to calculate the coeff. of variation for replicated samples. At some point we need to confirm when to throw out data based on too high of a CV.
-
-nuts_replicates_qc <- nuts_all_cols %>% 
-  select(common_columns, nh4_, no2_no3_um, no2_no3_ugl, no2_no3_units, tp, tdp,
-         tn, tdn, srp, po4, sio2, po4pfilt, no3nfilt, po4punfl, no3nunfl,
-         nh4nunfl, quality_level) %>% 
-  group_by(event_pk, line_out_depth) %>% 
-  summarise_at(c("nh4_", "no2_no3_um", "no2_no3_ugl",
-           "tp", "tdp", "tn", "tdn", "srp", "po4", "sio2", "po4pfilt", "no3nfilt", "po4punfl",
-           "no3nunfl", "nh4nunfl"), funs(mean(., na.rm = TRUE), sd(., na.rm = TRUE))) %>% 
-  mutate(n_replicates = n(),
-         nh4_cv         = (nh4__sd / nh4__mean) * 100,
-         no2_no3_um_cv  = (no2_no3_um_sd / no2_no3_um_mean) * 100,
-         no2_no3_ugl_cv = (no2_no3_ugl_sd / no2_no3_ugl_mean) * 100,
-         tp_cv          = (tp_sd / tp_mean) * 100,
-         tdp_cv         = (tdp_sd / tdp_mean) * 100,
-         tn_cv          = (tn_sd / tn_mean) * 100,
-         tdn_cv         = (tdn_sd / tdn_mean) * 100,
-         srp_cv         = (srp_sd / srp_mean) * 100,
-         po4_cv         = (po4_sd / po4_mean) * 100,
-         sio2_cv        = (sio2_sd / sio2_mean) * 100,
-         po4pfilt_cv    = (po4pfilt_sd / po4pfilt_mean) * 100,
-         no3nfilt_cv    = (no3nfilt_sd / no3nfilt_mean) * 100,
-         po4punfl_cv    = (po4punfl_sd / po4punfl_mean) * 100,
-         no3nunfl_cv    = (no3nunfl_sd / no3nunfl_mean) * 100,
-         nh4nunfl_cv    = (nh4nunfl_sd / nh4nunfl_mean) * 100
-  ) %>% 
-  filter(n_replicates > 1) %>% 
-  ungroup() 
-
-number_of_replicted_samping_events <- nrow(nuts_replicates_qc) 
-
-# This lists the samples that have atleast one nutrient that has a CV > 10 (arbitrary)
-high_cv <- nuts_replicates_qc %>% 
-  select(
-         nh4_cv,         
-         no2_no3_um_cv,  
-         no2_no3_ugl_cv, 
-         tp_cv,          
-         tdp_cv,         
-         tn_cv,         
-         tdn_cv,         
-         srp_cv,         
-         po4_cv,         
-         sio2_cv,        
-         po4pfilt_cv,    
-         no3nfilt_cv,    
-         po4punfl_cv,    
-         no3nunfl_cv,    
-         nh4nunfl_cv) %>% 
-  filter_all(any_vars(. > 10))
-
-nutty_nuts <- right_join(nuts_replicates_qc, high_cv) %>% 
-  select(event_pk, line_out_depth, n_replicates: nh4nunfl_cv)
-
-kable(nutty_nuts, caption = "Table. Nutrient sample replicates that have a coefficient of variation greater than .1")
-```
 
 ```{r Nutrients}
 nuts <- nuts_all_cols %>% 
-  filter(site_id == "QU39") %>% 
+  filter(site_id == site) %>% 
     select(common_columns, nh4_, no2_no3_um, no2_no3_ugl,
            no2_no3_units, tp, tdp, tn, tdn, srp, po4, sio2, po4pfilt, no3nfilt, po4punfl,
            no3nunfl, nh4nunfl, quality_level)
@@ -191,95 +107,123 @@ mean_nuts <- nuts %>%
   group_by(event_pk, line_out_depth, collected) %>% 
   summarise_at(c("nh4_", "no2_no3_um", "no2_no3_ugl",
            "tp", "tdp", "tn", "tdn", "srp", "po4", "sio2", "po4pfilt", "no3nfilt", "po4punfl",
-           "no3nunfl", "nh4nunfl"), funs(mean(., na.rm = TRUE), sd(., na.rm = TRUE), n()))
+           "no3nunfl", "nh4nunfl"), funs(mean(., na.rm = TRUE), sd(., na.rm = TRUE), n())) # Ignores suspect replicates
 
 ```
 
 ## Particulate Organic Matter
 
-```{r POMS QC, include=FALSE}
-kable(poms_all_cols %>% group_by(quality_level) %>% 
-  summarize(n = n()))
-
-poms_all_cols %>% 
-  group_by(work_area, quality_level) %>% 
-  summarize(n_samples = n()) %>% 
-  ggplot(aes(x = work_area, y = n_samples, fill = quality_level)) +
-  geom_bar(stat = "identity") +
-  labs(title = "POMS")
-```
-
-
 ```{r POMS}
 poms <- poms_all_cols %>% 
-  filter(site_id == "QU39") %>% 
-  select(common_columns, acidified, acidification_method, volume, part, screen_size, collected_poms = collected, preserved, analyzed, filter_portion, pre_weight_mg:row_flag, quality_level_poms = quality_level) %>%
-  #rename(poms_date = date) %>% 
+  filter(site_id == site) %>% 
+  select(common_columns, acidified, acidification_method, volume, part, screen_size, collected, preserved, analyzed, filter_portion, pre_weight_mg:row_flag, quality_level_poms = quality_level) %>%
   ungroup()
 
 ```
 
-## DOC
-
 # Join Discrete Samples
+
+## Join Chla with Nuts
 
 ```{r join discrete samples}
 
-discrete_samples <- full_join(chl_wide, nuts, by = c("event_pk", 
-                                                     "line_out_depth", "site_id"),
-                              suffix = c("_chl", "_nuts")) %>%
-  full_join(poms, by = c("event_pk", "line_out_depth", "site_id")) %>% 
-  ungroup() %>% 
-  mutate(year = year(date),
-         month = month(date),
-         day = yday(date)) %>% 
-  group_by(event_pk) %>% 
-  mutate(min_bottle_collection_t = min(collected_chl, collected_nuts, collected_poms, na.rm = TRUE),
-         max_bottle_collection_t = max(collected_chl, collected_nuts, collected_poms, na.rm = TRUE),
-         time_diff_mins = (max_bottle_collection_t - min_bottle_collection_t) / 60, 
-         discrete_sample_timediff_flag = ifelse(time_diff_mins > 60, "SVC", ""),
-         median_discrete_collected = median(collected_chl, collected_nuts, collected_poms, 
-                                            na.rm = TRUE)) 
+# This function assigns a new column thats a numeric of its date column. 
+# This number is used to calculate euclidean distance across other numbers (including depth, and lat and long)
+carbon_chem$numeric_collected <- as.numeric(carbon_chem$cc_date)
+chl_wide$numeric_collected <- as.numeric(chl_wide$collected)
+poms$numeric_collected <- as.numeric(poms$collected)
+nuts$numeric_collected <- as.numeric(nuts$collected)
+# create new depth column that gives preference to transducer depth
+
+#preference to transducer depth
+prf_2_td <- function(df) {
+  df$priority_depth <- round(coalesce(df$pressure_transducer_depth, df$line_out_depth), 0)
+  df
+}
+
+chl_wide <- prf_2_td(chl_wide)
+poms <- prf_2_td(poms)
+nuts <- prf_2_td(nuts)
+
+chl_nuts <- distance_full_join(chl_wide, nuts, 
+                                       by = c("priority_depth", "numeric_collected"), 
+                               distance_col = "diff", method = "euclidean", max_dist = 1)
+
+test_that("depths are the same", {
+  chl_nuts <- drop_na(chl_nuts, c("priority_depth.x", "priority_depth.y"))
+  expect_equal(chl_nuts$priority_depth.x, chl_nuts$priority_depth.y)
+})
+
+# fill in missing chl collection and depths with nuts depths and collection  times so I can joim other sample types all to chlorophyll
+chl_nuts$numeric_collected.x <- coalesce(chl_nuts$numeric_collected.x,
+                                         chl_nuts$numeric_collected.y)
+chl_nuts$priority_depth.x <- coalesce(chl_nuts$priority_depth.x, 
+                                      chl_nuts$priority_depth.y)
+
+chl_nuts <- chl_nuts %>%
+  rename_at(.vars  = vars(ends_with(".x")),
+            .funs = funs(sub("[.]x$", "_chl", .))) %>%
+  rename_at(.vars  = vars(ends_with(".y")),
+            .funs = funs(sub("[.]y$", "_nuts", .)))
+```
+
+## Join Chl/Nuts with POMS
+
+```{r}
+#TODO: The problem is here, b/c some chl a rows will have no collection time or depth. So I need to coalesce the chl collected numeric with the nuts collected, and same for priority depth.
+# The same problem with occur when I join carbon chem to chl_nuts_poms.
+chl_nuts_poms <- distance_full_join(chl_nuts, poms,
+                                    by = c("priority_depth_chl" =  "priority_depth",
+                                           "numeric_collected_chl" =  "numeric_collected"), 
+                               distance_col = "chl_poms_diff", method = "euclidean", max_dist = 1)
+
+# rename common cols with poms suffix
+chl_nuts_poms <- chl_nuts_poms %>%
+  rename(event_pk_poms = event_pk,
+         line_out_depth_poms = line_out_depth,
+         date_poms = date,
+         collected_poms = collected,
+         hakai_id_poms = hakai_id,
+         site_id_poms = site_id,
+         sampling_bout_poms = sampling_bout,
+         pressure_transducer_depth_poms = pressure_transducer_depth,
+         numeric_collected_poms = numeric_collected,
+         priority_depth_poms = priority_depth)
+
+# fill in chla times and depths with POMS
+chl_nuts_poms$numeric_collected_chl <- coalesce(chl_nuts_poms$numeric_collected_chl,
+                                         chl_nuts_poms$numeric_collected_poms)
+
+chl_nuts_poms$priority_depth_chl <- coalesce(chl_nuts_poms$priority_depth_chl, 
+                                      chl_nuts_poms$priority_depth_poms)
+```
+
+### Join Chl_nuts_poms with carbon chem
+
+```{r}
+chl_nuts_poms_carbon <- distance_full_join(chl_nuts_poms, carbon_chem,
+                                           by = c("priority_depth_chl" = "DEPTH_SAMPLING",
+                                           "numeric_collected_chl" = "numeric_collected"))
+
+chl_nuts_poms_carbon$priority_depth_chl <- coalesce(chl_nuts_poms_carbon$priority_depth_chl,
+                                      chl_nuts_poms_carbon$DEPTH_SAMPLING)
+
+#TODO: Rename carbon chem columns to match other discrete samples, including suffix on common columns
+
+discrete_samples <- chl_nuts_poms_carbon
 
 write_csv(discrete_samples, here::here("processed_data", "discrete_samples.csv"))
-```
-
-## Discrete Sample QC
-
-To assess whether there are any mistakes, or inconsistencies in how the data are
-joined, I calculate the difference in the time collected for each sample and 
-comapre it to the median time collected for all samples.
-
-```{r Discrete samples QC}
-#create minimal discrete samples data frame to qc easier
-min_ds <- discrete_samples %>%  
-  select(event_pk, collected_poms, collected_chl, collected_nuts, time_diff_mins,
-         median_discrete_collected, discrete_sample_timediff_flag,
-         min_bottle_collection_t, max_bottle_collection_t)
-
-ds_qc_table <- min_ds %>% 
-  filter(discrete_sample_timediff_flag != "") 
-
-```
-
-# CTD Data
-
-```{r CTD}
-
-qu39_ctd <- qu39_ctd %>% 
-  mutate(month = month(date),
-         depth = round(depth)) %>% # when I round it sometimes creates two rows for the same depth
-  distinct_at(vars(date, depth), .keep_all = TRUE) # this removes the duplicated depths
-
 ```
 
 # Join Discrete Samples and CTD Depths
 
 ```{r BFG}
-class(discrete_samples$day)
+qu39_ctd$numeric_collected <- as.numeric(qu39_ctd$start_dt)
 
-qu39_ctd$date <- as_date(qu39_ctd$date)
-bottle_file <- left_join(discrete_samples, qu39_ctd, by = c("date", "hakai_id", "work_area", "year", "site_id" = "station", "line_out_depth" = "depth"))
+bottle_file <- distance_left_join(discrete_samples, qu39_ctd, 
+                                  by = c("priority_depth_chl" = "depth",
+                                         "numeric_collected_chl" = "numeric_collected"))
+#bottle_file <- left_join(discrete_samples, qu39_ctd, by = c("date", "hakai_id", "work_area", "year", "site_id" = "station", "line_out_depth" = "depth"))
 ```
 
 

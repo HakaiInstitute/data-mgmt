@@ -33,3 +33,5 @@ qu39_ctd <- qu39_ctd %>%
     day = yday(start_dt))
 
 write_csv(qu39_ctd, here("raw_data", "qu39_ctd.csv"))
+
+# Import DOC data
