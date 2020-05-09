@@ -3,6 +3,7 @@ title: Public Work
 date: 2020-05-05
 ---
 
+## The unreasonable effectiveness of public work
 
 In honour of the honourable David Robinson. Thanks for the inspiration.
 
