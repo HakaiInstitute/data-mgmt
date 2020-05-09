@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Pages on Hakai Open Data Lab</title>
+    <title>Pages on Hakai Institute</title>
     <link>/page/</link>
-    <description>Recent content in Pages on Hakai Open Data Lab</description>
+    <description>Recent content in Pages on Hakai Institute</description>
     <generator>Hugo -- gohugo.io</generator>
-    <managingEditor>youremail@domain.com (Hakai Insititute Open Data Lab Collaborative hakaiRs)</managingEditor>
-    <webMaster>youremail@domain.com (Hakai Insititute Open Data Lab Collaborative hakaiRs)</webMaster>
+    <managingEditor>data@hakai.org (Hakai Insititute Open Data Lab Collaborative hakaiRs)</managingEditor>
+    <webMaster>data@hakai.org (Hakai Insititute Open Data Lab Collaborative hakaiRs)</webMaster>
     
 	<atom:link href="/page/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,7 +15,7 @@
       <title>About</title>
       <link>/page/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>youremail@domain.com (Hakai Insititute Open Data Lab Collaborative hakaiRs)</author>
+      <author>data@hakai.org (Hakai Insititute Open Data Lab Collaborative hakaiRs)</author>
       <guid>/page/about/</guid>
       <description>Sharing is caring.</description>
     </item>

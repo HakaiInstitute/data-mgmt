@@ -1,7 +1,7 @@
 baseurl = "https://open-data-lab.netlify.app/"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
-title = "Hakai Open Data Lab"
+title = "Hakai Institute"
 theme = "beautifulhugo"
 metaDataFormat = "yaml"
 pygmentsStyle = "trac"
@@ -17,8 +17,8 @@ pygmentsCodefencesGuessSyntax = true
   homeTitle = "Open Data Mgmt. Lab" # Set a different text for the header on the home page
   subtitle = "Nerding out in the best way possible"
   mainSections = ["post","posts"]
-  logo = "img/avatar-icon.png" # Expecting square dimensions
-  favicon = "img/favicon.ico"
+  logo = "img/square hakai favicon.png" # Expecting square dimensions
+  favicon = "square hakai favicon.png"
   dateFormat = "January 2, 2006"
   commit = false
   rss = true
@@ -46,33 +46,13 @@ pygmentsCodefencesGuessSyntax = true
 
 [Author]
   name = "Hakai Insititute Open Data Lab Collaborative hakaiRs"
-  website = "yourwebsite.com"
-  email = "youremail@domain.com"
-  facebook = "username"
-  github = "username"
-  gitlab = "username"
-  bitbucket = "username"
-  twitter = "username"
-  reddit = "username"
-  linkedin = "username"
-  xing = "username"
-  stackoverflow = "users/XXXXXXX/username"
-  snapchat = "username"
-  instagram = "username"
-  youtube = "user/username" # or channel/channelname
-  soundcloud = "username"
-  spotify = "username"
-  bandcamp = "username"
-  itchio = "username"
-  vk = "username"
-  paypal = "username"
-  telegram = "username"
-  500px = "username"
-  codepen = "username"
-  mastodon = "url"
-  kaggle = "username"
-  weibo = "username"
-  slack = "username"
+  website = "https:www.hakai.org"
+  email = "data@hakai.org"
+  github = "HakaiInstitute"
+  twitter = "HakaiInstitute"
+  instagram = "HakaiInstitute"
+  youtube = "hakai/HakaiInstitute" # or channel/channelname
+
 
 [[menu.main]]
     name = "Blog"
