@@ -1,7 +1,7 @@
 baseurl = "https://hakaiopendatalab.netlify.app/"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
-title = "Hakai Institute"
+title = "Hakai Institute Open Data Lab"
 theme = "beautifulhugo"
 metaDataFormat = "yaml"
 pygmentsStyle = "trac"
@@ -14,7 +14,7 @@ pygmentsCodefencesGuessSyntax = true
 #googleAnalytics = "XXX"
 
 [Params]
-  homeTitle = "Open Data Mgmt. Lab" # Set a different text for the header on the home page
+  homeTitle = "Open Data Lab" # Set a different text for the header on the home page
   subtitle = "Nerding out in the best way possible"
   mainSections = ["post","posts"]
   logo = "img/square hakai favicon.png" # Expecting square dimensions
@@ -45,7 +45,7 @@ pygmentsCodefencesGuessSyntax = true
 #  desc = "Hexagon"
 
 [Author]
-  name = "Hakai Insititute Open Data Lab Collaborative hakaiRs"
+  name = "Hakai Insititute"
   website = "https:www.hakai.org"
   email = "data@hakai.org"
   github = "HakaiInstitute"
@@ -62,29 +62,6 @@ pygmentsCodefencesGuessSyntax = true
 [[menu.main]]
     name = "About"
     url = "page/about/"
-    weight = 3
-
-[[menu.main]]
-    identifier = "samples"
-    name = "Samples"
-    weight = 2
-
-[[menu.main]]
-    parent = "samples"
-    name = "Big Image Sample"
-    url = "post/2017-03-07-bigimg-sample"
-    weight = 1
-
-[[menu.main]]
-    parent = "samples"
-    name = "Math Sample"
-    url = "post/2017-03-05-math-sample"
-    weight = 2
-
-[[menu.main]]
-    parent = "samples"
-    name = "Code Sample"
-    url = "post/2016-03-08-code-sample"
     weight = 3
 
 [[menu.main]]

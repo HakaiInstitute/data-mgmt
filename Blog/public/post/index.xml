@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Hakai Institute</title>
+    <title>Posts on Hakai Institute Open Data Lab</title>
     <link>/post/</link>
-    <description>Recent content in Posts on Hakai Institute</description>
+    <description>Recent content in Posts on Hakai Institute Open Data Lab</description>
     <generator>Hugo -- gohugo.io</generator>
-    <managingEditor>data@hakai.org (Hakai Insititute Open Data Lab Collaborative hakaiRs)</managingEditor>
-    <webMaster>data@hakai.org (Hakai Insititute Open Data Lab Collaborative hakaiRs)</webMaster>
+    <managingEditor>data@hakai.org (Hakai Insititute)</managingEditor>
+    <webMaster>data@hakai.org (Hakai Insititute)</webMaster>
     <lastBuildDate>Tue, 05 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
@@ -16,10 +16,10 @@
       <title>Public Work</title>
       <link>/post/public-work/</link>
       <pubDate>Tue, 05 May 2020 00:00:00 +0000</pubDate>
-      <author>data@hakai.org (Hakai Insititute Open Data Lab Collaborative hakaiRs)</author>
+      <author>data@hakai.org (Hakai Insititute)</author>
       <guid>/post/public-work/</guid>
-      <description>Public work In honour of the honourable David Robinson.
-Sharing is caring.
+      <description>In honour of the honourable David Robinson. Thanks for the inspiration.
+See David&#39;s oriniginal presentation here
   </description>
     </item>
     

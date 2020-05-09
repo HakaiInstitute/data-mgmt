@@ -1,15 +1,12 @@
 ---
 title: Public Work
-subtitle: I wish you'd been there
 date: 2020-05-05
 ---
 
 
-# Public work
+In honour of the honourable David Robinson. Thanks for the inspiration.
 
-In honour of the honourable David Robinson. 
-
-Sharing is caring.
+See David's oriniginal presentation [here](https://rstudio.com/resources/rstudioconf-2019/the-unreasonable-effectiveness-of-public-work/)
 
 
 {{< youtube id="0lqUVN4GabA" autoplay="true" >}}
