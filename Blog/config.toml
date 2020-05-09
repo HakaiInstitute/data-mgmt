@@ -14,7 +14,7 @@ pygmentsCodefencesGuessSyntax = true
 #googleAnalytics = "XXX"
 
 [Params]
-  homeTitle = "Open Data Lab" # Set a different text for the header on the home page
+  homeTitle = "Open Data Lab"
   subtitle = "Nerding out in the best way possible"
   mainSections = ["post","posts"]
   logo = "img/square hakai favicon.png" # Expecting square dimensions
@@ -22,7 +22,7 @@ pygmentsCodefencesGuessSyntax = true
   dateFormat = "January 2, 2006"
   commit = false
   rss = true
-  comments = true
+  comments = false
   readingTime = true
   wordCount = true
   useHLJS = true

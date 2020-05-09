@@ -1,0 +1,203 @@
+---
+title: Welcome
+author: Brett Johnson
+date: '2020-05-09'
+slug: welcome
+categories: []
+tags: []
+type: ''
+subtitle: ''
+image: ''
+---
+
+
+```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+Welcome, friends, to a data blog by the Hakai Institute.
+
+Explore environmental data with scientists as they seek to uncover the secrets of our complex coastal ecosystems.
+
+Below are some examples of data visualizations you can work on in our [GitHub Repository](http://github.com/hakaiinstitute/open-data-mgmt/Blog)
+
+I really hope you like what you find, and you consider making your work public so that you and others can benefit from collaboration. 
+
+```{r}
+library(networkD3)
+data(MisLinks, MisNodes)
+plot <- forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
+             Target = "target", Value = "value", NodeID = "name",
+             Group = "group", opacity = 0.4)
+
+plot
+
+```
+
+```{r}
+library(plotly)
+
+df <- read.csv("https://raw.githubusercontent.com/plotly/datasets/master/hobbs-pearson-trials.csv")
+
+fig <- plot_ly(
+    type = 'scatterpolargl',
+    mode = 'markers'
+  )
+
+j = 1
+k = 2
+for (i in 1:(length(df)/2)){
+ fig <- add_trace(
+    fig,
+    r = df[,j],
+    theta = df[,k],
+    name = paste('Trial ', i),
+    marker = list(
+      size = 15,
+      line = list(
+        color = '#FFF'
+      ),
+      opacity = 0.7
+    )
+  )
+  j <- j + 2
+  k <- k + 2
+}
+
+fig <- layout(
+  fig,
+  title = "Hobbs-Pearson Trials",
+  showlegend = F,
+  paper_bgcolor = "rgb(223, 223, 223)",
+  polar = list(
+    bgcolor = "rgb(223, 223, 223)",
+    angularaxis = list(
+      tickwidth = 2,
+      linewidth = 3,
+      layer = 'below traces'
+    ),
+    radialaxis = list(
+      side = 'counterclockwise',
+      showline = T,
+      linewidth = 2,
+      tickwidth = 2,
+      gridcolor = '#FFF',
+      gridwidth = 2
+    )
+  )
+)
+
+fig
+```
+
+```{r}
+library(plotly)
+
+fig <- plot_ly(
+  type = 'contour',
+  z = matrix(c(10, 10.625, 12.5, 15.625, 20, 5.625, 6.25, 8.125, 
+               11.25, 15.625, 2.5, 3.125, 5, 8.125, 12.5, 0.625, 
+               1.25, 3.125, 6.25, 10.625, 0, 0.625, 2.5, 5.625, 
+               10), nrow=5, ncol=5),
+  colorscale = 'Jet',
+  autocontour = F,
+  contours = list(
+    start = 0,
+    end = 8,
+    size = 2
+  )
+)
+
+fig
+```
+
+```{r}
+library(plotly)
+
+df <- read.csv("https://raw.githubusercontent.com/bcdunbar/datasets/master/parcoords_data.csv")
+
+fig <- df %>%
+  plot_ly(width = 1000, height = 600) 
+fig <- fig %>% add_trace(type = 'parcoords',
+          line = list(color = ~colorVal,
+                      colorscale = 'Jet',
+                      showscale = TRUE,
+                      reversescale = TRUE,
+                      cmin = -4000,
+                      cmax = -100),
+          dimensions = list(
+            list(range = c(~min(blockHeight),~max(blockHeight)),
+                 constraintrange = c(100000,150000),
+                 label = 'Block Height', values = ~blockHeight),
+            list(range = c(~min(blockWidth),~max(blockWidth)),
+                 label = 'Block Width', values = ~blockWidth),
+            list(tickvals = c(0,0.5,1,2,3),
+                 ticktext = c('A','AB','B','Y','Z'),
+                 label = 'Cyclinder Material', values = ~cycMaterial),
+            list(range = c(-1,4),
+                 tickvals = c(0,1,2,3),
+                 label = 'Block Material', values = ~blockMaterial),
+            list(range = c(~min(totalWeight),~max(totalWeight)),
+                 visible = TRUE,
+                 label = 'Total Weight', values = ~totalWeight),
+            list(range = c(~min(assemblyPW),~max(assemblyPW)),
+                 label = 'Assembly Penalty Weight', values = ~assemblyPW),
+            list(range = c(~min(HstW),~max(HstW)),
+                 label = 'Height st Width', values = ~HstW),
+            list(range = c(~min(minHW),~max(minHW)),
+                 label = 'Min Height Width', values = ~minHW),
+            list(range = c(~min(minWD),~max(minWD)),
+                 label = 'Min Width Diameter', values = ~minWD),
+            list(range = c(~min(rfBlock),~max(rfBlock)),
+                 label = 'RF Block', values = ~rfBlock)
+            )
+          )
+
+
+fig
+```
+
+
+```{r}
+library(dygraphs)
+dygraph(nhtemp, main = "New Haven Temperatures") %>% 
+  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))
+```
+
+```{r}
+library(d3heatmap)
+d3heatmap(mtcars, scale="column", colors="Blues")
+```
+
+```{r}
+URL <- paste0(
+        "https://cdn.rawgit.com/christophergandrud/networkD3/",
+        "master/JSONdata/energy.json")
+Energy <- jsonlite::fromJSON(URL)
+# Plot
+sankeyNetwork(Links = Energy$links, Nodes = Energy$nodes, Source = "source",
+             Target = "target", Value = "value", NodeID = "name",
+             units = "TWh", fontSize = 12, nodeWidth = 30)
+```
+
+```{r, eval = FALSE}
+URL <- paste0(
+        "https://cdn.rawgit.com/christophergandrud/networkD3/",
+        "master/JSONdata//flare.json")
+
+## Convert to list format
+Flare <- jsonlite::fromJSON(URL, simplifyDataFrame = FALSE)
+
+# Use subset of data for more readable diagram
+Flare$children = Flare$children[1:3]
+
+radialNetwork(List = Flare, fontSize = 10, opacity = 0.9)
+```
+
+```{r}
+hc <- hclust(dist(USArrests), "ave")
+
+dendroNetwork(hc, height = 600)
+```
+
