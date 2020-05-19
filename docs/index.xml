@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hakai Institute Open Data Lab</title>
+    <link>/</link>
+    <description>Recent content on Hakai Institute Open Data Lab</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>data@hakai.org (Hakai Insititute)</managingEditor>
+    <webMaster>data@hakai.org (Hakai Insititute)</webMaster>
+    <lastBuildDate>Sat, 09 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Welcome Gallery</title>
+      <link>/post/welcome/</link>
+      <pubDate>Sat, 09 May 2020 00:00:00 +0000</pubDate>
+      <author>data@hakai.org (Hakai Insititute)</author>
+      <guid>/post/welcome/</guid>
+      <description>Welcome, friends, to a data blog by the Hakai Institute.
+Explore environmental data with scientists as they seek to uncover the secrets of our complex coastal ecosystems.
+Below are some examples of data visualizations you can work on in our GitHub Repository
+I really hope you like what you find, and you consider making your work public so that you and others can benefit from collaboration.</description>
+    </item>
+    
+    <item>
+      <title>The unreasonable effectiveness of public work</title>
+      <link>/post/public-work/</link>
+      <pubDate>Tue, 05 May 2020 00:00:00 +0000</pubDate>
+      <author>data@hakai.org (Hakai Insititute)</author>
+      <guid>/post/public-work/</guid>
+      <description>In honour of the honourable David Robinson. Thanks for the inspiration.
+  See David&#39;s oriniginal presentation here</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>/page/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>data@hakai.org (Hakai Insititute)</author>
+      <guid>/page/about/</guid>
+      <description>Sharing is caring.</description>
+    </item>
+    
+  </channel>
+</rss>

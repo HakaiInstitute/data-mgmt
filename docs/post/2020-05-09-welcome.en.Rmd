@@ -1,0 +1,132 @@
+---
+title: Welcome Gallery
+author: Brett Johnson
+date: '2020-05-09'
+slug: welcome
+categories: []
+tags: []
+type: ''
+subtitle: ''
+image: ''
+---
+
+
+```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+Welcome, friends, to a data blog by the Hakai Institute.
+
+Explore environmental data with scientists as they seek to uncover the secrets of our complex coastal ecosystems.
+
+Below are some examples of data visualizations you can work on in our [GitHub Repository](http://github.com/hakaiinstitute/open-data-mgmt/Blog)
+
+I really hope you like what you find, and you consider making your work public so that you and others can benefit from collaboration. 
+
+# Hierarchical
+
+```{r}
+library(networkD3)
+hc <- hclust(dist(USArrests), "ave")
+
+dendroNetwork(hc, height = 600)
+```
+
+
+# Network
+
+```{r, network d3}
+library(visNetwork)
+data(MisLinks, MisNodes)
+plot <- forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
+             Target = "target", Value = "value", NodeID = "name",
+             Group = "group", opacity = 0.4)
+
+plot
+
+```
+
+## Sankey
+
+```{r, sankey}
+URL <- paste0(
+        "https://cdn.rawgit.com/christophergandrud/networkD3/",
+        "master/JSONdata/energy.json")
+Energy <- jsonlite::fromJSON(URL)
+# Plot
+sankeyNetwork(Links = Energy$links, Nodes = Energy$nodes, Source = "source",
+             Target = "target", Value = "value", NodeID = "name",
+             units = "TWh", fontSize = 12, nodeWidth = 30)
+```
+
+
+## Les Miserables
+
+Ever wonder which characters interact with which in the class Les Miserables?
+
+Me neither.
+
+But here it is!
+
+
+I'd rather see connection among zoop taxa or microbes
+
+```{r, network miserab}
+nodes <- jsonlite::fromJSON("https://raw.githubusercontent.com/datastorm-open/datastorm-open.github.io/master/visNetwork/data/nodes_miserables.json")
+
+edges <- jsonlite::fromJSON("https://raw.githubusercontent.com/datastorm-open/datastorm-open.github.io/master/visNetwork/data/edges_miserables.json")
+
+
+visNetwork(nodes, edges, height = "700px", width = "100%") %>%
+  visOptions(selectedBy = "group", 
+             highlightNearest = TRUE, 
+             nodesIdSelection = TRUE) %>%
+  visPhysics(stabilization = FALSE)
+```
+
+
+# Genomics
+
+```{r, eval = FALSE}
+library(BioCircos)
+library(RColorBrewer)
+library(grDevices)
+
+# Define a custom genome
+genomeChr = LETTERS
+lengthChr = 5*1:length(genomeChr)
+names(lengthChr) <- genomeChr
+
+tracks = BioCircosTracklist()
+# Add one track for each chromosome
+for (i in 1:length(genomeChr)){
+  # Define histogram/bars to be displayed
+  nbBars = lengthChr[i] - 1
+  barValues = sapply(1:nbBars, function(x) 10 + nbBars%%x)
+  barColor = colorRampPalette(brewer.pal(8, "YlOrBr"))(length(genomeChr))[i]
+  # Add a track with bars on the i-th chromosome
+  tracks = tracks + BioCircosBarTrack(paste0("bars", i), chromosome = genomeChr[i], 
+    starts = (1:nbBars) - 1, ends = 1:nbBars, values = barValues, color = barColor, 
+    range = c(5,75))
+}
+
+# Add background
+tracks = tracks + BioCircosBackgroundTrack("bars_background", colors = "#2222EE")
+
+BioCircos(tracks, genomeFillColor = "YlOrBr", genome = as.list(lengthChr), 
+  genomeTicksDisplay = F, genomeLabelDy = 0)
+
+```
+
+
+# Time Series
+
+```{r, timeseries}
+library(dygraphs)
+dygraph(nhtemp, main = "New Haven Temperatures") %>% 
+  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))
+```
+
+# Geospatial
+
