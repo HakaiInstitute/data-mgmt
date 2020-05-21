@@ -1,4 +1,4 @@
-baseurl = "https://hakaiopendatalab.netlify.app/"
+baseurl = "https://hakai-open-data-mgmt.netlify.app/"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
 title = "Hakai Institute Open Data Lab"
