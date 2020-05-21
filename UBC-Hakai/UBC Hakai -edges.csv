@@ -1,0 +1,60 @@
+From Type,From Name,Edge,To Type,To Name,Weight
+Person,Justin Belluz,PI of,Sample Type,Chlorophyll a,1
+Person,Jackie Maude,uses,Sample Type,Zooplankton 250 um Genetics,1
+Person,Caterina Rodriguez,works_with,Person,Jackie Maude,1
+Person,Caterina Rodriguez,uses,Sample Type,Microbial DNA,1
+Person,Colleen Kellogg,uses,Sample Type,Chlorophyll a,1
+Person,Colleen Kellogg,uses,Sample Type,Nutrients,1
+Person,Colleen Kellogg,works_with,Person,Jackie Maude,1
+Person,Colleen Kellogg,works_with,Person,Caterina Rodriguez,1
+Person,Colleen Kellogg,uses,Sample Type,Microbial DNA,1
+Person,Colleen Kellogg,uses,Sample Type,CTD,1
+Person,Colleen Kellogg,PI of,Sample Type,Microbial DNA,1
+Person,Alicia Andersen,uses,Sample Type,CTD,1
+Person,Alicia Andersen,uses,Sample Type,Juvenile Salmon Stomach Contents,1
+Person,Alicia Andersen,uses,Sample Type,JSP 250 um Horizontal Zooplankton Tows,1
+Person,Alicia Andersen,uses,Sample Type,Juvenile Salmon Muscle RNA:DNA,1
+Person,Alicia Andersen,uses,Sample Type,Juvenile Salmon Fatty Acids,1
+Person,Ian Giesbrecht,PI of,Sample Type,FGS DOC,1
+Person,Ian Giesbrecht,PI of,Sample Type,FGS POM,1
+Person,Ian Giesbrecht,supervises,Person,Kyra St. Pierre,1
+Person,Ian Giesbrecht,PI of,Sample Type,FGS Nutrients,1
+Person,Vanessa Fladmark,uses,Sample Type,Juvenile Salmon Stomach Contents,1
+Person,Anna McKlaskey,uses,Sample Type,Juvenile Salmon Fatty Acids,1
+Person,Anna McKlaskey,uses,Sample Type,POM Fatty Acids,1
+Person,Jennifer Jackson,supervises,Person,Justin Belluz,1
+Person,Jennifer Jackson,PI of,Sample Type,Nutrients,1
+Person,Jennifer Jackson,PI of,Sample Type,CTD,1
+Person,Jennifer Jackson,uses,Sample Type,CTD,1
+Person,Wiley Evans,PI of,Sample Type,Nutrients,1
+Person,Wiley Evans,PI of,Sample Type,CO2,1
+Person,Kyra St. Pierre,uses,Sample Type,FGS POM,1
+Person,Kyra St. Pierre,uses,Sample Type,FGS DOC,1
+Person,Kyra St. Pierre,uses,Sample Type,POM Isotopes,1
+Person,Kyra St. Pierre,uses,Sample Type,Chlorophyll a,1
+Person,Kyra St. Pierre,uses,Sample Type,Nutrients,1
+Person,Kyra St. Pierre,uses,Sample Type,POM Fatty Acids,1
+Person,Kyra St. Pierre,uses,Sample Type,FGS Nutrients,1
+Person,Patrick Pata,uses,Sample Type,Zooplankton 64 um Microscopy,1
+Person,Patrick Pata,uses,Sample Type,Zooplankton 250 um Microscopy,1
+Person,Brian Hunt,supervises,Person,Vanessa Fladmark,1
+Person,Brian Hunt,supervises,Person,Caterina Rodriguez,1
+Person,Brian Hunt,supervises,Person,Jackie Maude,1
+Person,Brian Hunt,supervises,Person,Anna McKlaskey,1
+Person,Brian Hunt,PI of,Sample Type,Zooplankton 250 um Fatty Acids,1
+Person,Brian Hunt,supervises,Person,Alicia Andersen,1
+Person,Brian Hunt,supervises,Person,Kyra St. Pierre,1
+Person,Brian Hunt,PI of,Sample Type,Zooplankton 64  um Isotopes,1
+Person,Brian Hunt,PI of,Sample Type,Zooplankton 250 um Genetics,1
+Person,Brian Hunt,supervises,Person,Patrick Pata,1
+Person,Brian Hunt,PI of,Sample Type,Zooplankton 64 um Microscopy,1
+Person,Brian Hunt,supervises,Person,Jessica Garzke,1
+Person,Brian Hunt,PI of,Sample Type,Zooplankton 250 um Isotopes,1
+Person,Brian Hunt,supervises,Person,Andrew Margolin,1
+Person,Brian Hunt,PI of,Sample Type,Juvenile Salmon Fatty Acids,1
+Person,Brian Hunt,PI of,Sample Type,Zooplankton 250 um Microscopy,1
+Person,Jessica Garzke,uses,Sample Type,CTD,1
+Person,Jessica Garzke,uses,Sample Type,Phytoplankton Microscopy,1
+Person,Jessica Garzke,uses,Sample Type,Juvenile Salmon Muscle RNA:DNA,1
+Person,Jessica Garzke,produces,Sample Type,Juvenile Salmon Muscle RNA:DNA,1
+Person,Andrew Margolin,uses,Sample Type,CTD,1

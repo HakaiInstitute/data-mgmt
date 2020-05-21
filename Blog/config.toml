@@ -1,0 +1,70 @@
+baseurl = "https://hakai-open-data-mgmt.netlify.app/"
+DefaultContentLanguage = "en"
+#DefaultContentLanguage = "ja"
+title = "Hakai Institute Open Data Lab"
+theme = "beautifulhugo"
+metaDataFormat = "yaml"
+pygmentsStyle = "trac"
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+pygmentsCodefencesGuessSyntax = true
+#pygmentsUseClassic = true
+#pygmentOptions = "linenos=inline"
+#disqusShortname = "XXX"
+#googleAnalytics = "XXX"
+
+[Params]
+  homeTitle = "Open Data Lab"
+  subtitle = "Nerding out in the best way possible"
+  mainSections = ["post","posts"]
+  logo = "img/square hakai favicon.png" # Expecting square dimensions
+  favicon = "square hakai favicon.png"
+  dateFormat = "January 2, 2006"
+  commit = false
+  rss = true
+  comments = false
+  readingTime = true
+  wordCount = true
+  useHLJS = true
+  socialShare = true
+  delayDisqus = true
+  showRelatedPosts = true
+#  hideAuthor = true
+#  gcse = "012345678901234567890:abcdefghijk" # Get your code from google.com/cse. Make sure to go to "Look and Feel" and change Layout to "Full Width" and Theme to "Classic"
+
+#[[Params.bigimg]]
+#  src = "img/triangle.jpg"
+#  desc = "Triangle"
+#[[Params.bigimg]]
+#  src = "img/sphere.jpg"
+#  desc = "Sphere"
+#  # position: see values of CSS background-position.
+#  position = "center top"
+#[[Params.bigimg]]
+#  src = "img/hexagon.jpg"
+#  desc = "Hexagon"
+
+[Author]
+  name = "Hakai Insititute"
+  website = "https:www.hakai.org"
+  email = "data@hakai.org"
+  github = "HakaiInstitute"
+  twitter = "HakaiInstitute"
+  instagram = "HakaiInstitute"
+  youtube = "hakai/HakaiInstitute" # or channel/channelname
+
+
+[[menu.main]]
+    name = "Blog"
+    url = ""
+    weight = 1
+
+[[menu.main]]
+    name = "About"
+    url = "page/about/"
+    weight = 3
+
+[[menu.main]]
+    name = "Tags"
+    url = "tags"
+    weight = 3
