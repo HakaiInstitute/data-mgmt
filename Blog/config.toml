@@ -1,7 +1,7 @@
 baseurl = "https://hakai-open-data-mgmt.netlify.app/"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
-title = "Hakai Institute Open Data Lab"
+title = "Hakai Data Mgmt Blog."
 theme = "beautifulhugo"
 metaDataFormat = "yaml"
 pygmentsStyle = "trac"
@@ -14,7 +14,7 @@ pygmentsCodefencesGuessSyntax = true
 #googleAnalytics = "XXX"
 
 [Params]
-  homeTitle = "Open Data Lab"
+  homeTitle = "Data Mgmt. Blog"
   subtitle = "Nerding out in the best way possible"
   mainSections = ["post","posts"]
   logo = "img/square hakai favicon.png" # Expecting square dimensions

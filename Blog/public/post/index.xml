@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Hakai Institute Open Data Lab</title>
+    <title>Posts on Hakai Data Mgmt Blog.</title>
     <link>/post/</link>
-    <description>Recent content in Posts on Hakai Institute Open Data Lab</description>
+    <description>Recent content in Posts on Hakai Data Mgmt Blog.</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>data@hakai.org (Hakai Insititute)</managingEditor>
     <webMaster>data@hakai.org (Hakai Insititute)</webMaster>
-    <lastBuildDate>Sat, 09 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 21 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to post a blog</title>
+      <link>/post/how-to-post-a-blog/</link>
+      <pubDate>Thu, 21 May 2020 00:00:00 +0000</pubDate>
+      <author>data@hakai.org (Hakai Insititute)</author>
+      <guid>/post/how-to-post-a-blog/</guid>
+      <description>Welcome to a new platform to share blog posts, how-to guides, example data anlayses etc. I encourage people to publicize some of their hard work so that you and others may benefit!
+Why? Because of the unreasonable effectiveness of Public Work.
+We are committed to ensuring that all the data generated with Hakai funding is made available to the broader research community and downstream users. To do so, we practice Open Science; the practice of science in such a way that other scientists, and the public, can collaborate and contribute.</description>
+    </item>
     
     <item>
       <title>Welcome Gallery</title>
