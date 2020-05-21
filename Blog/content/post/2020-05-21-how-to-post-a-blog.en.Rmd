@@ -1,0 +1,26 @@
+---
+title: How to post a blog!
+author: Brett Johnson
+date: '2020-05-21'
+slug: how-to-post-a-blog
+categories: []
+tags: []
+type: ''
+subtitle: ''
+image: ''
+---
+
+Welcome to a new platform to share blog posts, how-to guides, example data anlayses etc. I encourage people to publicize some of their hard work so that you and others may benefit!
+
+Step by step instructions:
+
+- Open R-Studio and create new project by checkin out project from version control
+- set URL to https://github.com/HakaiInstitute/open-data-mgmt
+- Open project
+- Go to files, click on Blog folder, click Blog.Rproj to open a 
+'sub-project' within the open-data-mgmt project. Opening the Blog.Rproj file will give you addins for making posts and previewing a website!
+- Navigate to the top of the R-Studio window and click add-ins
+- Click serve site. You should see the website appear in the viewer. Changing files and saving them will update the website preview.
+- To create a new post: navigate to Addins and click New post.
+- Once your post is done: commit, pull, push to GitHub.
+- Check https://hakai-open-data-mgmt.netlify.app
