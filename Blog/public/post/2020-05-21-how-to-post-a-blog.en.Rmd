@@ -38,9 +38,10 @@ Why write a blog?
 
 Step by step instructions:
 
-- Open R-Studio and create new project by checkin out project from version control
+- Open R-Studio and create new project by checking out project from version control
 - set URL to https://github.com/HakaiInstitute/open-data-mgmt
 - Open project
+- Checkout the development branch of the git repo by going to the top right of R Studio's git pane and selecting develop
 - Go to files, click on Blog folder, click Blog.Rproj to open a 
 'sub-project' within the open-data-mgmt project. Opening the Blog.Rproj file will give you addins for making posts and previewing a website!
 - Navigate to the top of the R-Studio window and click add-ins
@@ -48,3 +49,5 @@ Step by step instructions:
 - To create a new post: navigate to Addins and click New post.
 - Once your post is done: commit, pull, push to GitHub.
 - Check https://hakai-open-data-mgmt.netlify.app
+
+{{< youtube j07mA7Yn-wY >}}

@@ -7,9 +7,64 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>data@hakai.org (Hakai Insititute)</managingEditor>
     <webMaster>data@hakai.org (Hakai Insititute)</webMaster>
+    <lastBuildDate>Fri, 22 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Data Science</title>
+      <link>/tags/data-science/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      <author>data@hakai.org (Hakai Insititute)</author>
+      <guid>/tags/data-science/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ecology</title>
+      <link>/tags/ecology/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      <author>data@hakai.org (Hakai Insititute)</author>
+      <guid>/tags/ecology/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hakai Institute</title>
+      <link>/tags/hakai-institute/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      <author>data@hakai.org (Hakai Insititute)</author>
+      <guid>/tags/hakai-institute/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Oceanography</title>
+      <link>/tags/oceanography/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      <author>data@hakai.org (Hakai Insititute)</author>
+      <guid>/tags/oceanography/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>/tags/r/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      <author>data@hakai.org (Hakai Insititute)</author>
+      <guid>/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Science communications</title>
+      <link>/tags/science-communications/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      <author>data@hakai.org (Hakai Insititute)</author>
+      <guid>/tags/science-communications/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>
