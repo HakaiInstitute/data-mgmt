@@ -11,7 +11,7 @@ tags:
   - Oceanography
   - Science communications
   - Hakai Institute
-  
+  -
   subtitle: 'Open science and public work—catalyze your research'
 ---
 
