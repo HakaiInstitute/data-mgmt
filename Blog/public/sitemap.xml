@@ -3,44 +3,44 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>//hakai-open-data-mgmt.netlify.app/</loc>
+    <loc>/</loc>
     <lastmod>2020-05-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>//hakai-open-data-mgmt.netlify.app/post/how-to-write-a-blog-post-here/</loc>
+    <loc>/post/how-to-write-a-blog-post-here/</loc>
     <lastmod>2020-05-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>//hakai-open-data-mgmt.netlify.app/post/</loc>
+    <loc>/post/</loc>
     <lastmod>2020-05-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>//hakai-open-data-mgmt.netlify.app/post/welcome/</loc>
+    <loc>/post/welcome/</loc>
     <lastmod>2020-05-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>//hakai-open-data-mgmt.netlify.app/post/public-work/</loc>
+    <loc>/post/public-work/</loc>
     <lastmod>2020-05-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>//hakai-open-data-mgmt.netlify.app/page/about/</loc>
+    <loc>/page/about/</loc>
   </url>
   
   <url>
-    <loc>//hakai-open-data-mgmt.netlify.app/categories/</loc>
+    <loc>/categories/</loc>
   </url>
   
   <url>
-    <loc>//hakai-open-data-mgmt.netlify.app/page/</loc>
+    <loc>/page/</loc>
   </url>
   
   <url>
-    <loc>//hakai-open-data-mgmt.netlify.app/tags/</loc>
+    <loc>/tags/</loc>
   </url>
   
 </urlset>

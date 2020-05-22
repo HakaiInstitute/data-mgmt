@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Hakai Data Mgmt Blog.</title>
-    <link>//hakai-open-data-mgmt.netlify.app/tags/</link>
+    <link>/tags/</link>
     <description>Recent content in Tags on Hakai Data Mgmt Blog.</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>data@hakai.org (Hakai Insititute)</managingEditor>
     <webMaster>data@hakai.org (Hakai Insititute)</webMaster>
     
-	<atom:link href="//hakai-open-data-mgmt.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
