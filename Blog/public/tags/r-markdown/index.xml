@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>R Markdown on Hakai Open Data Lab</title>
+    <title>R Markdown on Hakai Data Mgmt Blog.</title>
     <link>/tags/r-markdown/</link>
-    <description>Recent content in R Markdown on Hakai Open Data Lab</description>
+    <description>Recent content in R Markdown on Hakai Data Mgmt Blog.</description>
     <generator>Hugo -- gohugo.io</generator>
-    <managingEditor>youremail@domain.com (Hakai Insititute Open Data Lab Collaborative hakaiRs)</managingEditor>
-    <webMaster>youremail@domain.com (Hakai Insititute Open Data Lab Collaborative hakaiRs)</webMaster>
-    <lastBuildDate>Thu, 23 Jul 2015 21:13:14 -0500</lastBuildDate>
+    <managingEditor>data@hakai.org (Hakai Insititute)</managingEditor>
+    <webMaster>data@hakai.org (Hakai Insititute)</webMaster>
+    <lastBuildDate>Fri, 22 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/r-markdown/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Hello R Markdown</title>
-      <link>/post/2015-07-23-r-rmarkdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
-      <author>youremail@domain.com (Hakai Insititute Open Data Lab Collaborative hakaiRs)</author>
-      <guid>/post/2015-07-23-r-rmarkdown/</guid>
-      <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
+      <title>How to write a blog post!</title>
+      <link>/post/how-to-write-a-blog-post-here/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      <author>data@hakai.org (Hakai Insititute)</author>
+      <guid>/post/how-to-write-a-blog-post-here/</guid>
+      <description>Welcome to a new platform to share blog posts, how-to guides, example data anlayses etc. I encourage people to publicize some of their hard work so that you and others may benefit!
+Why? Because of the unreasonable effectiveness of Public Work.
+We are committed to ensuring that all the data generated with Hakai funding is made available to the broader research community and downstream users. To do so, we practice Open Science; the practice of science in such a way that other scientists, and the public, can collaborate and contribute.</description>
     </item>
     
   </channel>
