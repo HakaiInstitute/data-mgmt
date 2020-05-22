@@ -3,75 +3,44 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/</loc>
+    <loc>//hakai-open-data-mgmt.netlify.app/</loc>
     <lastmod>2020-05-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/data-science/</loc>
+    <loc>//hakai-open-data-mgmt.netlify.app/post/how-to-write-a-blog-post-here/</loc>
     <lastmod>2020-05-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/ecology/</loc>
+    <loc>//hakai-open-data-mgmt.netlify.app/post/</loc>
     <lastmod>2020-05-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/hakai-institute/</loc>
-    <lastmod>2020-05-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/how-to-write-a-blog-post-here/</loc>
-    <lastmod>2020-05-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/oceanography/</loc>
-    <lastmod>2020-05-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2020-05-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/r/</loc>
-    <lastmod>2020-05-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/science-communications/</loc>
-    <lastmod>2020-05-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-05-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/welcome/</loc>
+    <loc>//hakai-open-data-mgmt.netlify.app/post/welcome/</loc>
     <lastmod>2020-05-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/public-work/</loc>
+    <loc>//hakai-open-data-mgmt.netlify.app/post/public-work/</loc>
     <lastmod>2020-05-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/page/about/</loc>
+    <loc>//hakai-open-data-mgmt.netlify.app/page/about/</loc>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>//hakai-open-data-mgmt.netlify.app/categories/</loc>
   </url>
   
   <url>
-    <loc>/page/</loc>
+    <loc>//hakai-open-data-mgmt.netlify.app/page/</loc>
+  </url>
+  
+  <url>
+    <loc>//hakai-open-data-mgmt.netlify.app/tags/</loc>
   </url>
   
 </urlset>

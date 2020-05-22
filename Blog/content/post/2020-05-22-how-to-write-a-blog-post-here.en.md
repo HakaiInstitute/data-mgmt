@@ -3,16 +3,7 @@ title: How to write a blog post!
 author: Brett Johnson
 date: '2020-05-22'
 slug: how-to-write-a-blog-post-here
-categories:
-tags:
-  - R
-  - Data Science
-  - Ecology
-  - Oceanography
-  - Science communications
-  - Hakai Institute
-  
-  subtitle: 'Open science and public work—catalyze your research'
+subtitle: 'Open science and public work—catalyze your research'
 ---
 
 Welcome to a new platform to share blog posts, how-to guides, and data anlayses for working with Open Data and the Hakai Institute. I encourage people to publicize some of their hard work so that you and others may benefit!
