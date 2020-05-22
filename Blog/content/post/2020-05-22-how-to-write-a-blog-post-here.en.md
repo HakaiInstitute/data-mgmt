@@ -8,9 +8,6 @@ subtitle: 'Open science and public work—catalyze your research'
 
 Welcome to a new platform to share blog posts, how-to guides, and data anlayses for working with Open Data and the Hakai Institute. I encourage people to publicize some of their hard work so that you and others may benefit!
 
-![](/post/2020-05-22-how-to-write-a-blog-post-here.en_files/picccc.png)
-Figure 1. A word-cloud auto generated from the Hakai Open Data Mgmt. bi-weekly meeting converstaions.
-
 We are committed to ensuring that all the data generated with Hakai funding is made available to the broader research community and downstream users. To do so, we practice Open Science; the practice of science in such a way that other scientists, and the public, can collaborate and contribute. To do so, research data, methods documents, publications and other research processes are freely available under terms that enable reuse, redistribution and reproduction of the research and its underlying data and methods.
 
 The Hakai Institute is funded by the Tula Foundation, a non-profit charity which is obligated to
@@ -53,5 +50,14 @@ Step by step instructions to post on this blog (for Hakai staff and affiliates):
 
 You can see and hear our entire discussion from meeting this week below! I plan to upload these meetings to youtube so that others may benefit from our discussions!
 
+
 {{< youtube j07mA7Yn-wY >}}
+
+
+Here's a word cloud of what we acutally talked about! 
+![](/post/2020-05-22-how-to-write-a-blog-post-here.en_files/picccc.png)
+Figure 1. A word-cloud auto generated from the Hakai Open Data Mgmt. bi-weekly meeting converstaions.
+
+Show notes links:
+
 
