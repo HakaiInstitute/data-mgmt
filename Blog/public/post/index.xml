@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Hakai Data Mgmt Blog.</title>
+    <title>Posts on Hakai Institute Data Mgmt Blog.</title>
     <link>/post/</link>
-    <description>Recent content in Posts on Hakai Data Mgmt Blog.</description>
+    <description>Recent content in Posts on Hakai Institute Data Mgmt Blog.</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>data@hakai.org (Hakai Insititute)</managingEditor>
     <webMaster>data@hakai.org (Hakai Insititute)</webMaster>
@@ -18,7 +18,7 @@
       <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
       <author>data@hakai.org (Hakai Insititute)</author>
       <guid>/post/how-to-write-a-blog-post-here/</guid>
-      <description>Welcome to a new platform to share data working with Open Data and the Hakai Institute. Think of this blog as an open electronic lab notebook where scientists explore environmental data, share workflows and tools, and share public work.
+      <description>Welcome to a new blog from the Hakai Institute Science and Technology staff where we&#39;re working with Open Data from Hakai Institute. Think of this blog as an open electronic lab notebook where scientists explore environmental data, share workflows, tools, and our public work.
 We are committed to ensuring that all the data generated with Hakai funding is made available to the broader research community and downstream users. To do so, we practice Open Science; the practice of science in such a way that other scientists, and the public, can collaborate and contribute.</description>
     </item>
     
