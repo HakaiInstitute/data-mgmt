@@ -1,12 +1,12 @@
 ---
-title: How to write a blog post!
+title: How to write a Hakai data mgmt. blog post!
 author: Brett Johnson
 date: '2020-05-22'
 slug: how-to-write-a-blog-post-here
 subtitle: 'Open science and public work—catalyze your research'
 ---
 
-Welcome to a new platform to share blog posts, how-to guides, and data anlayses for working with Open Data and the Hakai Institute. I encourage people to publicize some of their hard work so that you and others may benefit!
+Welcome to a new platform to share data working with Open Data and the Hakai Institute. Think  of this blog  as an open electronic lab notebook where scientists explore environmental data, share workflows and tools, and share public work.
 
 We are committed to ensuring that all the data generated with Hakai funding is made available to the broader research community and downstream users. To do so, we practice Open Science; the practice of science in such a way that other scientists, and the public, can collaborate and contribute. To do so, research data, methods documents, publications and other research processes are freely available under terms that enable reuse, redistribution and reproduction of the research and its underlying data and methods.
 
@@ -22,7 +22,7 @@ For scientists at any stage of their careers, Open Science development offers pr
 Why blog? Because of the unreasonable effectiveness of Public Work. 
 
 ![](/post/2020-05-21-how-to-post-a-blog.en_files/1.png)
-Figure. Slide for [David Robinsons presentation!](https://rstudio.com/resources/rstudioconf-2019/the-unreasonable-effectiveness-of-public-work/)
+Figure. Slide from [David Robinsons presentation!](https://rstudio.com/resources/rstudioconf-2019/the-unreasonable-effectiveness-of-public-work/)
 
 
 Writing a blog post can *crystalize your own understanding* of a difficult problem.There are many other reasons why you might want to start a blog, but the only way you're going to be successful in the long time is if it's for you.
