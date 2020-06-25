@@ -380,19 +380,8 @@ summary {
 </ol>
 <p>The package can do some other things, like create frequency tables and crosstabs, but I am not familiar with their use so I’ll not discuss them.</p>
 <p>First things first, we need to install and load the package in <em>R</em>. We also load the <em>dplyr</em> package because we’ll be working with pipes as well.</p>
-<pre><code>## 
-## Attaching package: &#39;janitor&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     chisq.test, fisher.test</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(janitor)
+library(dplyr)</code></pre>
 <p>The first function to examine is <em>clean_names()</em>. This function works great in a pipeline <code>%&gt;%</code> and can be used when reading in the data. It handles column names that are “non-R-friendly” (i.e., have spaces or have special cases), and makes them more R-friendly. <em>Janitor</em>:</p>
 <ul>
 <li>Returns names with only lowercase letters and separated by _.</li>
@@ -426,11 +415,9 @@ data.frame(dirty_names = make.names(names(df_test)), tidy_names = colnames(tidy_
 <div id="remove_empty" class="section level2">
 <h2>remove_empty()</h2>
 <p>Aside from the <strong>clean_names</strong> function, another function within this package I’d like to point out is the <code>remove_empty()</code> function. It automatically gets rid of any empty rows or columns, and can be included in the pipeline when importing the data.</p>
-<pre class="r"><code>df &lt;- read_excel(&quot;dataframe.xlsx&quot;) %&gt;% clean_names() %&gt;% remove_empty()
-
-OR 
-
-df &lt;- janitor::remove_empty(dataframe, which = c(&quot;rows&quot;, &quot;cols&quot;))
+<pre class="r"><code>df &lt;- read_excel(&quot;dataframe.xlsx&quot;) %&gt;% clean_names() %&gt;% remove_empty()</code></pre>
+<p>OR</p>
+<pre class="r"><code>df &lt;- janitor::remove_empty(dataframe, which = c(&quot;rows&quot;, &quot;cols&quot;))
 # If &quot;which&quot; is not specified, it defaults to both rows and cols. </code></pre>
 </div>
 <div id="get_dupes" class="section level2">

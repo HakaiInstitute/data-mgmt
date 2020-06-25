@@ -1,0 +1,81 @@
+---
+title: "Funky packages"
+author: "Tim van der Stap"
+date: '2020-05-22'
+slug: tim-testing-blog
+categories: []
+tags: []
+type: ''
+subtitle: ''
+image: ''
+---
+
+Hello all! I figured it could be beneficial to explore various packages that are potentially useful in examining and tidying data. Given that I am still very much a novice when it comes to _R_, it would be great to understand how _R_ can assist in data wrangling. I would much appreciate feedback and suggestions of other packages that can be useful for this purpose.
+
+# Janitor package
+
+The first package I'd like to explore and discuss is the *janitor* package. The vignette for this package can be found [here](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html) but I just want to go over the main functions that this package offers, which are:
+
+  1. format data frame column names; and
+  2. identify and remove duplicate rows or columns. 
+  
+The package can do some other things, like create frequency tables and crosstabs, but I am not familiar with their use so I'll not discuss them. 
+
+First things first, we need to install and load the package in _R_. We also load the _dplyr_ package because we'll be working with pipes as well.
+
+``` {r load_janitor, message=FALSE}
+install.packages("janitor")
+library(janitor)
+library(dplyr)
+```
+
+The first function to examine is *clean_names()*. This function works great in a pipeline `%>%` and can be used when reading in the data. It handles column names that are "non-R-friendly" (i.e., have spaces or have special cases), and makes them more R-friendly. *Janitor*:
+
+  * Returns names with only lowercase letters and separated by _. 
+  * Handles special cases and spaces;
+  * Converts e.g. % to percent, and # to number;
+  * In the case of duplicated names, adds a number
+
+However, it has to be said that _this package is not an all-powerful solution to difficult column names, but definitely a start_. To showcase it's use, but also it's limitations, let's create a dataframe with difficult column names:
+
+``` {r create_df}
+df_test <- as.data.frame(matrix(ncol=8))
+names(df_test) <- c("firstColumn", "#_2Column", "why [ml/L]",
+                    "% good columns (2009)", "d13CVPDB (‰)", "Total N (µg)",
+                    "DO.[ml/L]", "DO.[ml/L]")
+df_test %>% clean_names()
+```
+
+Now notice that while these column names are more R-friendly, they're not completely similar to the input. For example, the microgram gets tidied to mg, and the L is no longer capitalized. However, I like how it handles (square) brackets and spacing, and personally I think it looks better than what base R produces:
+
+```{r}
+tidy_names <- df_test %>% clean_names()
+data.frame(dirty_names = make.names(names(df_test)), tidy_names = colnames(tidy_names))
+```
+
+It will be up to user to decide whether the package is useful (and necessary) to tidy column names in the dataframe. 
+
+## remove_empty()
+
+Aside from the **clean_names** function, another function within this package I'd like to point out is the `remove_empty()` function. It automatically gets rid of any empty rows or columns, and can be included in the pipeline when importing the data.
+
+``` {r, eval = FALSE}
+df <- read_excel("dataframe.xlsx") %>% clean_names() %>% remove_empty()
+```
+
+OR 
+
+``` {r, eval = FALSE}
+df <- janitor::remove_empty(dataframe, which = c("rows", "cols"))
+# If "which" is not specified, it defaults to both rows and cols. 
+```
+
+## get_dupes()
+
+This function within the *janitor* package can be used to examine duplicate records within a column. In a tidy dataframe you might want to have unique IDs or entries. `get_dupes()` returns the records and a count of the duplicates so you can examine them. `get_dupes()` returns a data frame with the full records where the specified variables have duplicated values, as well as a column `dupe_count` indicating the number of rows that share the duplication. A great way to examine whether you have any duplicates if you weren't expecting any!
+
+``` {r, eval = FALSE}
+df %>% get_dupes(column_name)
+```
+
+
